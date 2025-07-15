@@ -52,7 +52,7 @@
 					<!-- Las imágenes se cargarán dinámicamente desde la API -->
 				</div>
 		</div>
-		<div class="container">
+		<div class="container" id="inicio">
 			<header class="major">
 				<h2>Avisos</h2>
 			</header>
@@ -104,16 +104,16 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
 	<script type="module">
-		const URL_BASE = 'http://127.0.0.1:8000/api/';
+		const URL_BASE = 'http://127.0.0.1:8000/';
 
-		const URL_MODULOS = URL_BASE + 'modulos';
-		const URL_AVISOS = URL_BASE + 'avisos';
-		const URL_NOTAS = URL_BASE + 'notas';
+		const URL_API_MODULOS = URL_BASE + 'api/modulos';
+		const URL_API_AVISOS = URL_BASE + 'api/avisos';
+		const URL_API_NOTAS = URL_BASE + 'api/notas';
 
 
-		const URL_FILES_AVISOS = 'http://legisver.gob.mx/sitioAdminFiscalizacion/public/storage/avisos/';
-		const URL_FILES_NOTAS = 'http://legisver.gob.mx/sitioAdminFiscalizacion/public/storage/notas/';
-		const URL_FILES_MODULOS = 'http://legisver.gob.mx/sitioAdminFiscalizacion/public/storage/modulos/';
+		const URL_FILES_AVISOS = URL_BASE + 'storage/avisos/';
+		const URL_FILES_NOTAS = URL_BASE + 'storage/notas/';
+		const URL_FILES_MODULOS = URL_BASE + 'storage/modulos/';
 
 
 		import * as modulos from '/resources/views/modulos.js';
@@ -122,13 +122,13 @@
 
 		$(document).ready(function () {
 
-			carousel.crear(URL_NOTAS,'banner-carousel');
+			carousel.crear(URL_API_NOTAS, 'banner-carousel');
 
 			// Cargar menú de módulos
-			modulos.modulosAside(URL_MODULOS);
+			modulos.modulosAside(URL_API_MODULOS);
 
 			// Cargar avisos
-			avisos.muestraAvisos(URL_AVISOS);
+			avisos.muestra(URL_API_AVISOS, URL_FILES_AVISOS, 'avisos-content');
 
 		});
 	</script>

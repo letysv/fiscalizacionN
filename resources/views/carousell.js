@@ -1,9 +1,9 @@
 /**
  * Función que carga las notas desde una API y las muestra en un carrusel.
  * @param {string} urlApi 
- * @param {string} idCarousel
+ * @param {string} contenedor
  */
-export function crear(urlApi,idCarousel) {
+export function crear(urlApi,contenedor) {
     // Configuración para obtener datos de la API
     const settings = {
         async: true,
@@ -14,20 +14,20 @@ export function crear(urlApi,idCarousel) {
 
     // Realizar la petición AJAX
     $.ajax(settings).done(function (response) {
-        mostrarCarrusel(response,idCarousel);
+        mostrarCarrusel(response,contenedor);
     }).fail(function (jqXHR, textStatus, errorThrown) {
         console.error("Error al cargar las imágenes:", textStatus, errorThrown);
         // Mostrar imagen por defecto si hay error
-        $(`#${idCarousel}`).html('<div class="item"><img src="images/banner.jpg" alt="Banner por defecto"></div>');
-        inicializarCarrusel(idCarousel);
+        $(`#${contenedor}`).html('<div class="item"><img src="images/banner.jpg" alt="Banner por defecto"></div>');
+        inicializarCarrusel(contenedor);
     });
 
 
 }
 
 // Función para mostrar el carrusel con los datos de la API
-function mostrarCarrusel(notas,idCarousel) {
-    const carrusel = $(`#${idCarousel}`);
+function mostrarCarrusel(notas,contenedor) {
+    const carrusel = $(`#${contenedor}`);
     carrusel.empty(); // Limpiar contenido previo
 
     // Filtrar solo notas activas y agregar imágenes al carrusel
@@ -53,12 +53,12 @@ function mostrarCarrusel(notas,idCarousel) {
     }
 
     // Inicializar el carrusel
-    inicializarCarrusel(idCarousel);
+    inicializarCarrusel(contenedor);
 }
 
 // Función para inicializar Owl Carousel con animaciones
-function inicializarCarrusel(idCarousel) {
-    $(`#${idCarousel}`).owlCarousel({
+function inicializarCarrusel(contenedor) {
+    $(`#${contenedor}`).owlCarousel({
         items: 1,
         loop: true,
         autoplay: true,
