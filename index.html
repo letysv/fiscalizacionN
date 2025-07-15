@@ -268,10 +268,6 @@
 							}
 							
 
-							let avisos = '<div>'
-							
-
-
 							// Crear contenedor de avisos
 							const $avisosContainer = $('<div class="avisos-container"></div>');
 							
@@ -291,7 +287,7 @@
 									if (items.length > 0) {	
 										const $archivosContainer = $('<div class="archivos-container"></div>');
 										items.forEach(item => {
-											const itemFile = `<a href="${item.archivo}">${item.descripcion}</a>`;
+											const itemFile = `<a href="${item.archivo}" target="_blank">${item.descripcion}</a>`;
 											
 											$archivosContainer.append(`<div class="archivo-item">${itemFile}</div>`);
 
