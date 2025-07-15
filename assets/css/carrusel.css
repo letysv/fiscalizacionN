@@ -1,0 +1,115 @@
+.owl-carousel .item img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+.owl-nav {
+	position: absolute;
+	top: 50%;
+	width: 100%;
+	transform: translateY(-50%);
+}
+.owl-prev, .owl-next {
+	position: absolute;
+	font-size: 2rem !important;
+	color: white !important;
+	background: rgba(0,0,0,0.5) !important;
+	width: 40px;
+	height: 60px;
+	line-height: 60px !important;
+	text-align: center;
+	border-radius: 0 !important;
+}
+.owl-prev {
+	left: 0;
+}
+.owl-next {
+	right: 0;
+}
+.owl-dots {
+    position: absolute;
+	bottom: 20px;
+	width: 100%;
+	text-align: center;
+}
+.owl-dot span {
+	background: white !important;
+}
+.owl-dot.active span {
+    background: #4CAF50 !important;
+}
+
+.owl-carousel, .owl-carousel .owl-stage-outer, .owl-carousel .owl-stage, 
+  .owl-carousel .owl-item {
+    height: 100% !important;
+}
+.owl-carousel .item img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+}
+
+/* Estilos para el menú dinámico */
+#dynamic-menu {
+    list-style: none;
+    padding-left: 0;
+}
+
+#dynamic-menu li {
+    margin-bottom: 1em;
+}
+
+#dynamic-menu a {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 0.5em;
+    border-radius: 4px;
+}
+
+#dynamic-menu a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#dynamic-menu a.active {
+    background-color: rgba(76, 175, 80, 0.3);
+    font-weight: bold;
+}
+
+#dynamic-menu .icon {
+    margin-right: 0.8em;
+    width: 1.2em;
+    text-align: center;
+}
+
+/* Mensajes de estado */
+.text-muted {
+    color: #6c757d !important;
+    font-style: italic;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
+
+/* Estilos para los avisos */
+.avisos-container {
+	margin-top: 2em;
+}
+.aviso-item {
+	margin-bottom: 2em;
+	padding-bottom: 1em;
+	border-bottom: 1px solid #eee;
+}
+.aviso-item:last-child {
+	border-bottom: none;
+}
+.aviso-titulo {
+	color: #4CAF50;
+	margin-bottom: 0.5em;
+}
+.aviso-descripcion {
+	text-align: justify;
+}
