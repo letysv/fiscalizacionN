@@ -1,17 +1,18 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>SECRETARÍA DE FISCALIZACIÓN</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-		<link rel="stylesheet" href="assets/css/carrusel.css" />
-		<link rel="stylesheet" href="assets/css/carrusel.css" />
-		<link rel="stylesheet" href="assets/css/avisos.css" />
-		<link rel="stylesheet" href="assets/css/modulos.css" />
-	</head>
+
+<head>
+	<title>SECRETARÍA DE FISCALIZACIÓN</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+	<link rel="stylesheet" href="assets/css/carrusel.css" />
+	<link rel="stylesheet" href="assets/css/avisos.css" />
+	<link rel="stylesheet" href="assets/css/modulos.css" />
+</head>
 
 <body class="is-preload">
 
@@ -24,13 +25,9 @@
 		<nav id="nav">
 			<ul id="menu-modulos">
 				<!-- Los módulos se cargarán aquí dinámicamente -->
-				<!-- <li><a href="#one" class="active">About</a></li>
-					<li><a href="#two">Things I Can Do</a></li>
-					<li><a href="#three">A Few Accomplishments</a></li>
-					<li><a href="#four">Contact</a></li> -->
 			</ul>
 		</nav>
-		<!-- <footer>
+		<footer>
 				<ul class="icons">
 					<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
 					<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
@@ -38,7 +35,7 @@
 					<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
 					<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
 				</ul>
-			</footer> -->
+			</footer>
 	</section>
 
 	<!-- Wrapper -->
@@ -47,26 +44,25 @@
 		<div id="main">
 
 			<!-- One -->
-			<section id="one">
+			<section id="carousel">
 				<div class="image main" data-position="center">
 					<div class="owl-carousel owl-theme" id="banner-carousel" style="height: 400px;"></div>
 					<!-- Las imágenes se cargarán dinámicamente desde la API -->
 				</div>
 		</div>
-		<div class="container" id="inicio">
-			<header class="major">
-				<h2>Avisos</h2>
-			</header>
-			<div id="avisos-content">
-				<!-- Los avisos se cargarán aquí dinámicamente -->
-			</div>
-		</div>
 		</section>
 
-		<!-- Two -->
-		<!-- <section id="two">
-					<div class="container">
-						<h3>Things I Can Do</h3>
+		<!-- Sección principal -->
+		<section>
+			<div class="container" id="main_container">
+				<header class="major">
+					<h2><!-- Aquí va un título dinámico especificado en el script --></h2>
+				</header>
+				<div id="data_container">
+					<!-- Los avisos se cargarán aquí dinámicamente -->
+				</div>
+
+				<!-- <h3>Things I Can Do</h3>
 						<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer non. Adipiscing cubilia elementum integer lorem ipsum dolor sit amet.</p>
 						<ul class="feature-icons">
 							<li class="icon solid fa-code">Write all the code</li>
@@ -75,10 +71,9 @@
 							<li class="icon solid fa-coffee">Drink much coffee</li>
 							<li class="icon solid fa-bolt">Lightning bolt</li>
 							<li class="icon solid fa-users">Shadow clone technique</li>
-						</ul>
-					</div>
-				</section> -->
-
+						</ul> -->
+			</div>
+		</section>
 	</div>
 
 	<!-- Footer -->
@@ -117,9 +112,9 @@
 		const URL_FILES_MODULOS = URL_BASE + 'storage/modulos/';
 
 
-		import * as modulos from '/resources/views/modulos.js';
-		import * as avisos from '/resources/views/avisos.js';
-		import * as carousel from '/resources/views/carousell.js';
+		import * as modulos from './resources/views/modulos.js';
+		import * as avisos from './resources/views/avisos.js';
+		import * as carousel from './resources/views/carousell.js';
 
 		$(document).ready(function () {
 
@@ -129,7 +124,13 @@
 			modulos.modulosAside(URL_API_MODULOS, 'menu-modulos');
 
 			// Cargar avisos
-			avisos.muestra(URL_API_AVISOS, URL_FILES_AVISOS, 'avisos-content');
+			const contentSettings = {
+				url_api : URL_API_AVISOS,
+				url_files : URL_FILES_AVISOS,
+				main_container : 'main_container',
+				datacontainer : 'data_container',
+				title: 'Avisos Importante'			}
+			avisos.muestra(contentSettings);
 
 		});
 	</script>
