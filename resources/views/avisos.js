@@ -5,12 +5,20 @@
  * @param {string} urlFiles 
  * @param {string} contenedor
  */
-export function muestra(urlApi, urlFiles, contenedor) {
+export function muestra(settings) {
     $.ajax({
-        url: urlApi,
+        url: settings.url_api,
         method: 'GET',
         success: function (avisos) {
-            const $avisosContent = $('#' + contenedor);
+
+            const $mainContainer = $('#' + settings.main_container);
+
+            // Actualizar el título si se proporciona
+            if (settings.title) {
+                $mainContainer.find('header.major h2').text(settings.title);
+            }
+
+            const $avisosContent = $('#' + settings.datacontainer);
             $avisosContent.empty();
 
             // Filtrar avisos activos y ordenar por fecha
@@ -23,7 +31,6 @@ export function muestra(urlApi, urlFiles, contenedor) {
                 return;
             }
 
-
             // Crear contenedor de avisos
             const $avisosContainer = $('<div></div>');
 
@@ -35,21 +42,21 @@ export function muestra(urlApi, urlFiles, contenedor) {
 									</div>
 								`);
 
-                                $avisosContainer.append($avisoItem);
-                                
-                                
-                                const items = aviso.items || [];
-                                if (items.length > 0) {
-                                    const $archivosContainer = $('<div class="archivos-container"></div>');
-                                    items.forEach(item => {
-                                        const itemFile = `<a href="${urlFiles}${item.archivo}" target="_blank">${item.descripcion}</a>`;
-                                        
-                                        $archivosContainer.append(`<div class="archivo-item">${itemFile}</div>`);
-                                        
-                                        $avisosContainer.append($archivosContainer);
-                                    })
-                                }
-                                
+                $avisosContainer.append($avisoItem);
+
+
+                const items = aviso.items || [];
+                if (items.length > 0) {
+                    const $archivosContainer = $('<div class="archivos-container"></div>');
+                    items.forEach(item => {
+                        const itemFile = `<a href="${settings.url_files}${item.archivo}" target="_blank">${item.descripcion}</a>`;
+
+                        $archivosContainer.append(`<div class="archivo-item">${itemFile}</div>`);
+
+                        $avisosContainer.append($archivosContainer);
+                    })
+                }
+
             });
 
             $avisosContent.append($avisosContainer);

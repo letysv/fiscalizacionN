@@ -12,8 +12,10 @@
 }
 .aviso-titulo {
 	color: #000;
-	margin-bottom: 0.5em;
+	/* margin-bottom: 0.1em; */
+	margin: 0.5em 0 0 0;
 }
 .aviso-descripcion {
 	text-align: justify;
+	color: blueviolet;
 }
