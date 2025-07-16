@@ -2,14 +2,15 @@
 /**
  * Función que carga los módulos desde la API y los muestra en el menú dinámico.
  * @param {string} urlApi 
+ * @param {string} contenedor
  */
-export function modulosAside(urlApi) {
+export function modulosAside(urlApi, contenedor) {
     $.ajax({
         url: urlApi,
         method: 'GET',
         dataType: 'json',
         success: function (modulos) {
-            const $menu = $('#dynamic-menu');
+            const $menu = $(contenedor);
             $menu.empty();
 
             // Obtener la ruta/hash actual
