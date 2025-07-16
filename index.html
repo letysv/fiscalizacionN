@@ -8,7 +8,6 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 		<link rel="stylesheet" href="assets/css/carrusel.css" />
-		<link rel="stylesheet" href="assets/css/carrusel.css" />
 		<link rel="stylesheet" href="assets/css/avisos.css" />
 		<link rel="stylesheet" href="assets/css/modulos.css" />
 	</head>
@@ -24,10 +23,6 @@
 		<nav id="nav">
 			<ul id="menu-modulos">
 				<!-- Los módulos se cargarán aquí dinámicamente -->
-				<!-- <li><a href="#one" class="active">About</a></li>
-					<li><a href="#two">Things I Can Do</a></li>
-					<li><a href="#three">A Few Accomplishments</a></li>
-					<li><a href="#four">Contact</a></li> -->
 			</ul>
 		</nav>
 		<!-- <footer>
@@ -117,9 +112,9 @@
 		const URL_FILES_MODULOS = URL_BASE + 'storage/modulos/';
 
 
-		import * as modulos from '/resources/views/modulos.js';
-		import * as avisos from '/resources/views/avisos.js';
-		import * as carousel from '/resources/views/carousell.js';
+		import * as modulos from './resources/views/modulos.js';
+		import * as avisos from './resources/views/avisos.js';
+		import * as carousel from './resources/views/carousell.js';
 
 		$(document).ready(function () {
 
