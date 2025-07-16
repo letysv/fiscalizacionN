@@ -27,15 +27,15 @@
 				<!-- Los módulos se cargarán aquí dinámicamente -->
 			</ul>
 		</nav>
-		<footer>
-				<ul class="icons">
-					<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-					<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-					<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-					<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-					<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-				</ul>
-			</footer>
+		<!-- <footer>
+			<ul class="icons">
+				<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+				<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+				<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+				<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+				<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+			</ul>
+		</footer> -->
 	</section>
 
 	<!-- Wrapper -->
@@ -81,7 +81,7 @@
 		<div class="container">
 			<ul class="copyright">
 				<li>&copy; Congreso del Estado de Veracruz.</li>
-				<li>Ir a:<a href="http://legisver.gob.mx">LEGISVER</a></li>
+				<li>Ir a:<a href="http://legisver.gob.mx" target="_blank">LEGISVER</a></li>
 			</ul>
 		</div>
 	</section>
@@ -101,15 +101,15 @@
 
 	<script type="module">
 		const URL_BASE = 'http://127.0.0.1:8000/';
+		// const URL_BASE = 'https://legisver.gob.mx/sitioAdminFiscalizacion/';
 
 		const URL_API_MODULOS = URL_BASE + 'api/modulos';
 		const URL_API_AVISOS = URL_BASE + 'api/avisos';
 		const URL_API_NOTAS = URL_BASE + 'api/notas';
 
-
 		const URL_FILES_AVISOS = URL_BASE + 'storage/avisos/';
 		const URL_FILES_NOTAS = URL_BASE + 'storage/notas/';
-		const URL_FILES_MODULOS = URL_BASE + 'storage/modulos/';
+		const URL_FILES_MODULOS = URL_BASE + 'storage/seccionitems/';
 
 
 		import * as modulos from './resources/views/modulos.js';
@@ -118,18 +118,33 @@
 
 		$(document).ready(function () {
 
-			carousel.crear(URL_API_NOTAS, 'banner-carousel');
+			// cargar carrusel de imágenes
+			const carouselSettings = {
+				url_api: URL_API_NOTAS,
+				url_files: URL_FILES_NOTAS,
+				container: 'banner-carousel'
+			}
+			carousel.crear(carouselSettings);
 
 			// Cargar menú de módulos
-			modulos.modulosAside(URL_API_MODULOS, 'menu-modulos');
+			const modulosSettings = {
+				url_base: URL_BASE,
+				url_api: URL_API_MODULOS,
+				url_files: URL_FILES_MODULOS,
+				menu_container: 'menu-modulos',
+				main_container: 'main_container',
+				datacontainer: 'data_container',
+			}
+			modulos.modulosAside(modulosSettings);
 
 			// Cargar avisos
 			const contentSettings = {
-				url_api : URL_API_AVISOS,
-				url_files : URL_FILES_AVISOS,
-				main_container : 'main_container',
-				datacontainer : 'data_container',
-				title: 'Avisos Importante'			}
+				url_api: URL_API_AVISOS,
+				url_files: URL_FILES_AVISOS,
+				main_container: 'main_container',
+				datacontainer: 'data_container',
+				title: 'Avisos Importante'
+			}
 			avisos.muestra(contentSettings);
 
 		});

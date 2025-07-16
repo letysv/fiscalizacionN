@@ -3,37 +3,37 @@
  * @param {string} urlApi 
  * @param {string} contenedor
  */
-export function crear(urlApi,contenedor) {
+export function crear(settings) {
     // Configuración para obtener datos de la API
-    const settings = {
+    const settingsAjax = {
         async: true,
         crossDomain: true,
-        url: urlApi,
+        url: settings.url_api,
         method: 'GET'
     };
 
     // Realizar la petición AJAX
-    $.ajax(settings).done(function (response) {
-        mostrarCarrusel(response,contenedor);
+    $.ajax(settingsAjax).done(function (data) {
+        mostrarCarrusel(data,settings.container,settings.url_files);
     }).fail(function (jqXHR, textStatus, errorThrown) {
         console.error("Error al cargar las imágenes:", textStatus, errorThrown);
         // Mostrar imagen por defecto si hay error
         $(`#${contenedor}`).html('<div class="item"><img src="images/banner.jpg" alt="Banner por defecto"></div>');
-        inicializarCarrusel(contenedor);
+        inicializarCarrusel(settings.container);
     });
 
 
 }
 
 // Función para mostrar el carrusel con los datos de la API
-function mostrarCarrusel(notas,contenedor) {
+function mostrarCarrusel(notas,contenedor,urlFiles) {
     const carrusel = $(`#${contenedor}`);
     carrusel.empty(); // Limpiar contenido previo
 
     // Filtrar solo notas activas y agregar imágenes al carrusel
     notas.filter(nota => nota.activo == 1).forEach(nota => {
         const imagenes = nota.items || [];
-        const rutaBase = 'http://127.0.0.1:8000/storage/notas/';
+        const rutaBase = urlFiles;
 
         imagenes.forEach(imagen => {
             const itemDiv = $('<div class="item"></div>');
