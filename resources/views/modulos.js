@@ -28,6 +28,12 @@ export function modulosAside(settings) {
                 return;
             }
 
+            const $liInicio = $('<li></li>');
+            const $aInicio = $('<a href="">Inicio</a>')
+            $liInicio.append($aInicio);
+            $menu.append($liInicio);
+
+
             // Crear ítems del menú
             modulosActivos.forEach(modulo => {
                 const $li = $('<li></li>');
@@ -66,7 +72,7 @@ export function modulosAside(settings) {
 
             // Si ningún ítem quedó activo, activar el primero
             if (!moduloActivoEncontrado && modulosActivos.length > 0) {
-                $menu.find('li:first-child a').addClass('active');
+                // $menu.find('li:first-child a').addClass('active');
             }
 
             // Inicializar funcionalidad de scroll del template
@@ -82,9 +88,7 @@ export function modulosAside(settings) {
 }
 
 function muestraContenido(settings) {
-    // console.log(urlApi)
     const $mainContainer = $('#' + settings.main_container);
-    console.log(settings)
     if (settings.title) {
         $mainContainer.find('header.major h2').text(settings.title);
     }
@@ -130,7 +134,7 @@ function muestraContenido(settings) {
                                     const $itemSeccion = $(`
                                                         <div class="item-seccion">
                                                             <a href="${settings.url_files}${itemSeccion.archivo}" target="_blank" class="item-archivo">
-                                                                ${itemSeccion.nombre ? itemSeccion.nombre : 'Ver archivo'}
+                                                                ${itemSeccion.nombre}
                                                             </a>
                                                         </div>
                                                     `);

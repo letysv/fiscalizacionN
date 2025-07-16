@@ -27,7 +27,7 @@
 				<!-- Los módulos se cargarán aquí dinámicamente -->
 			</ul>
 		</nav>
-		<footer>
+		<!-- <footer>
 			<ul class="icons">
 				<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
 				<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
@@ -35,7 +35,7 @@
 				<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
 				<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
 			</ul>
-		</footer>
+		</footer> -->
 	</section>
 
 	<!-- Wrapper -->
@@ -81,7 +81,7 @@
 		<div class="container">
 			<ul class="copyright">
 				<li>&copy; Congreso del Estado de Veracruz.</li>
-				<li>Ir a:<a href="http://legisver.gob.mx">LEGISVER</a></li>
+				<li>Ir a:<a href="http://legisver.gob.mx" target="_blank">LEGISVER</a></li>
 			</ul>
 		</div>
 	</section>
@@ -109,7 +109,7 @@
 
 		const URL_FILES_AVISOS = URL_BASE + 'storage/avisos/';
 		const URL_FILES_NOTAS = URL_BASE + 'storage/notas/';
-		const URL_FILES_MODULOS = URL_BASE + 'storage/modulos/';
+		const URL_FILES_MODULOS = URL_BASE + 'storage/seccionitems/';
 
 
 		import * as modulos from './resources/views/modulos.js';
@@ -130,6 +130,7 @@
 			const modulosSettings = {
 				url_base: URL_BASE,
 				url_api: URL_API_MODULOS,
+				url_files: URL_FILES_MODULOS,
 				menu_container: 'menu-modulos',
 				main_container: 'main_container',
 				datacontainer: 'data_container',
