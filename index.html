@@ -19,7 +19,7 @@
 			<h1 id="logo"><a href="#">SECRETARÍA DE FISCALIZACIÓN</a></h1>
 		</header>
 		<nav id="nav">
-			<ul id="dynamic-menu">
+			<ul id="menu-modulos">
 				<!-- Los módulos se cargarán aquí dinámicamente -->
 				<!-- <li><a href="#one" class="active">About</a></li>
 					<li><a href="#two">Things I Can Do</a></li>
@@ -123,7 +123,7 @@
 			carousel.crear(URL_API_NOTAS, 'banner-carousel');
 
 			// Cargar menú de módulos
-			modulos.modulosAside(URL_API_MODULOS);
+			modulos.modulosAside(URL_API_MODULOS, 'menu-modulos');
 
 			// Cargar avisos
 			avisos.muestra(URL_API_AVISOS, URL_FILES_AVISOS, 'avisos-content');
