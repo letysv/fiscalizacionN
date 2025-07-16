@@ -10,7 +10,7 @@ export function modulosAside(urlApi, contenedor) {
         method: 'GET',
         dataType: 'json',
         success: function (modulos) {
-            const $menu = $(contenedor);
+            const $menu = $('#' + contenedor);
             $menu.empty();
 
             // Obtener la ruta/hash actual
