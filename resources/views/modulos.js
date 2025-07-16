@@ -88,7 +88,7 @@ function muestraContenido(settings) {
     if (settings.title) {
         $mainContainer.find('header.major h2').text(settings.title);
     }
-    
+
     $.ajax({
         url: settings.url_api,
         method: 'GET',
@@ -96,10 +96,56 @@ function muestraContenido(settings) {
         success: function (data) {
             // Procesar y mostrar los datos en el contenedor correspondiente
             const $container = $('#' + settings.main_container);
-            // $container.empty();
+            $container.empty();
+            if (settings.title) {
+                    $container.find('header.major h2').text(settings.title);
+            }
             if (data && data.length > 0) {
                 data.forEach(item => {
-                    const $item = $('<div class="item"></div>').text(item.titulo);
+                    // Crear contenedor principal del módulo
+                    const $item = $(`
+                                        <header class="major">
+                                            <h2 class="modulo-nombre">${item.nombre}</h2>
+                                            <div class="modulo-secciones"></div>
+                                        </header>
+                                    `);
+
+                    const $seccionesContainer = $item.find('.modulo-secciones');
+
+                    // Procesar las secciones del módulo
+                    if (item.modulos_seccion && item.modulos_seccion.length > 0) {
+                        item.modulos_seccion.forEach(seccion => {
+                            const $seccion = $(`
+                                                <div class="seccion-item">
+                                                    <h4 class="seccion-nombre">${seccion.nombre}</h4>
+                                                    <div class="items-container"></div>
+                                                </div>
+                                            `);
+
+                            const $itemsContainer = $seccion.find('.items-container');
+
+                            // Procesar los items de la sección
+                            if (seccion.items_seccion && seccion.items_seccion.length > 0) {
+                                seccion.items_seccion.forEach(itemSeccion => {
+                                    const $itemSeccion = $(`
+                                                        <div class="item-seccion">
+                                                            <a href="${settings.url_files}${itemSeccion.archivo}" target="_blank" class="item-archivo">
+                                                                ${itemSeccion.nombre ? itemSeccion.nombre : 'Ver archivo'}
+                                                            </a>
+                                                        </div>
+                                                    `);
+                                    $itemsContainer.append($itemSeccion);
+                                });
+                            } else {
+                                $itemsContainer.html('<p class="text-muted">No hay items en esta sección</p>');
+                            }
+
+                            $seccionesContainer.append($seccion);
+                        });
+                    } else {
+                        $seccionesContainer.html('<p class="text-muted">No hay secciones disponibles</p>');
+                    }
+
                     $container.append($item);
                 });
             } else {
