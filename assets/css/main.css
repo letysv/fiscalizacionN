@@ -76,6 +76,7 @@ input, select, textarea {
 
 	html {
 		box-sizing: border-box;
+		height: 100%;
 	}
 
 	*, *:before, *:after {
@@ -84,6 +85,9 @@ input, select, textarea {
 
 	body {
 		background: #fff;
+		min-height: 100%;
+		display: flex;
+		flex-direction: column;
 	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
@@ -2831,9 +2835,16 @@ input, select, textarea {
 	#wrapper {
 		background: #fff;
 		padding-right: 23em;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
 	}
 
 /* Main */
+
+	#main {
+		flex: 1;
+	}
 
 	#main > section {
 		border-top: solid 6px #f4f4f4;
@@ -2854,7 +2865,11 @@ input, select, textarea {
 		border-top: 0;
 		color: #c0c0c0;
 		overflow: hidden;
-		padding: 4em 0 2em 0;
+		padding: 1.5em 0 1em 0;
+		margin-top: 4em;
+		position: relative;
+		bottom: 0;
+		width: 100%;
 	}
 
 		#footer .copyright {
@@ -3228,6 +3243,8 @@ input, select, textarea {
 
 			#footer {
 				text-align: center;
+				padding: 1em 0 0.5em 0;
+				margin-top: 2em;
 			}
 
 				#footer .copyright li {
