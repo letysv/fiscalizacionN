@@ -103,7 +103,7 @@
 		const URL_BASE = 'http://127.0.0.1:8000/';
 		// const URL_BASE = 'https://legisver.gob.mx/sitioAdminFiscalizacion/';
 
-		const URL_API_MODULOS = URL_BASE + 'api/modulos';
+		const URL_API_MODULOS = URL_BASE + 'api/modulos/';
 		const URL_API_AVISOS = URL_BASE + 'api/avisos';
 		const URL_API_NOTAS = URL_BASE + 'api/notas';
 
@@ -129,8 +129,10 @@
 			// Cargar menú de módulos
 			const modulosSettings = {
 				url_base: URL_BASE,
-				url_api: URL_API_MODULOS,
-				url_files: URL_FILES_MODULOS,
+				url_apiModulos: URL_API_MODULOS,
+				url_filesModulos: URL_FILES_MODULOS,
+				url_apiNotas: URL_API_NOTAS,
+				url_filesNotas: URL_FILES_NOTAS,
 				menu_container: 'menu-modulos',
 				main_container: 'main_container',
 				datacontainer: 'data_container',

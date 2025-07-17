@@ -5,7 +5,7 @@
  */
 export function modulosAside(settings) {
   $.ajax({
-    url: settings.url_api,
+    url: settings.url_apiModulos,
     method: "GET",
     dataType: "json",
     success: function (data) {
@@ -32,6 +32,21 @@ export function modulosAside(settings) {
       $liInicio.append($aInicio);
       $menu.append($liInicio);
 
+      const $liNotas = $("<li></li>");
+      const $aNotas = $('<a href="">Notas</a>');
+      $aNotas.on("click", function (e) {
+        e.preventDefault(); // Prevenir el comportamiento por defecto del enlace
+        // const api = settings.url_base + "api/modulo/" + modulo.id;
+        const api = settings.url_apiNotas;
+        console.log(api);
+        settings.url_api = api;
+        settings.title = "Notas";
+        muestraContenido(settings);
+      });
+
+      $liNotas.append($aNotas);
+      $menu.append($liNotas);
+
       // Crear ítems del menú
       modulosActivos.forEach((modulo) => {
         const $li = $("<li></li>");
@@ -45,6 +60,7 @@ export function modulosAside(settings) {
         $a.on("click", function (e) {
           e.preventDefault(); // Prevenir el comportamiento por defecto del enlace
           const api = settings.url_base + "api/modulo/" + modulo.id;
+
           // console.log('Hiciste clic en ', modulo.nombre, modulo.link, 'api:', api);
           settings.url_api = api;
           settings.title = modulo.nombre;
@@ -137,7 +153,7 @@ function muestraContenido(settings) {
                 seccion.items_seccion.forEach((itemSeccion) => {
                   const $itemSeccion = $(`
                                                         <div class="item-seccion">
-                                                            <a href="${settings.url_files}${itemSeccion.archivo}" target="_blank" class="item-archivo">
+                                                            <a href="${settings.url_filesModulos}${itemSeccion.archivo}" target="_blank" class="item-archivo">
                                                                 ${itemSeccion.nombre}
                                                             </a>
                                                         </div>
