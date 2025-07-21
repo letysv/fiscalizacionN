@@ -33,7 +33,6 @@ export function modulosAside(settings) {
             $liInicio.append($aInicio);
             $menu.append($liInicio);
 
-
             // Crear ítems del menú
             modulosActivos.forEach(modulo => {
                 const $li = $('<li></li>');
@@ -69,6 +68,12 @@ export function modulosAside(settings) {
                 $li.append($a);
                 $menu.append($li);
             });
+
+            const $liNotas = $('<li></li>');
+            const $aNotas = $('<a href="">Notas</a>')
+            $liNotas.append($aNotas);
+            $menu.append($liNotas);
+
 
             // Si ningún ítem quedó activo, activar el primero
             if (!moduloActivoEncontrado && modulosActivos.length > 0) {
