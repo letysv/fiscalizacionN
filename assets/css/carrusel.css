@@ -90,9 +90,16 @@
     margin-bottom: 15px;
 }
 
+.nota-fecha {
+    line-height: 1.6;
+    color: #555;
+    font-weight: bold;
+}
+
 .nota-descripcion {
     line-height: 1.6;
     color: #555;
+    text-align: justify;
 }
 
 /* Estilo para el título clickable */

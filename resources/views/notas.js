@@ -77,7 +77,7 @@ function muestraNotas(data, settings) {
                     </div>
                     </div>
                     `);
-                    // <a href="" class="btn btn-primary" onClick="show('${JSON.stringify(settings)}', ${nota.id})">Ver nota</a>
+        // <a href="" class="btn btn-primary" onClick="show('${JSON.stringify(settings)}', ${nota.id})">Ver nota</a>
         $item.on("click", function (e) {
             e.preventDefault(); // Prevenir el comportamiento por defecto del enlace
             show(settings, nota.id);
@@ -122,8 +122,15 @@ export function show(settings, idNota) {
                 `;
             }
 
+            const fecha = new Date(notaJson.created_at);
+            const fechaFormateada = `${fecha.getDate().toString().padStart(2, '0')}/${(fecha.getMonth() + 1).toString().padStart(2, '0')}/${fecha.getFullYear()}`;
+
+
             const detalleHTML = `
                 <div class="nota-detalle">
+                    <div class="nota-fecha">
+                        <span class="fecha">${fechaFormateada}</span>
+                    </div>
                     <h2>${notaJson.nombre || 'Sin título'}</h2>
                     ${imagenesHTML}
                     <div class="nota-descripcion">
