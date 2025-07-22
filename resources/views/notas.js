@@ -1,3 +1,7 @@
+/**
+ * 
+ * @param {Array} settings - Configuración para las notas
+ */
 export function muestra(settings) {
     $.ajax({
         url: settings.url_apiNotas,
