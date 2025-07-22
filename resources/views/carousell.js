@@ -30,35 +30,37 @@ function mostrarCarrusel(notas,contenedor,urlFiles) {
     const carrusel = $(`#${contenedor}`);
     carrusel.empty(); // Limpiar contenido previo
 
-    // Filtrar solo notas activas y agregar imágenes al carrusel
-    notas.filter(nota => nota.activo == 1)
-        .slice(0, 3)
-        .forEach(nota => {
+    const notasActivas = notas.filter(nota => nota.activo == 1);
+    
+    const notasOrdenadas = notasActivas.sort((a, b) => {
+        return new Date(b.created_at) - new Date(a.created_at);
+    });
+
+    const ultimasTresNotas = notasOrdenadas.slice(0, 3);
+
+    ultimasTresNotas.forEach(nota => {
         const imagenes = nota.items || [];
         const rutaBase = urlFiles;
 
-        imagenes.forEach(imagen => {
+        if (imagenes.length > 0) {
+            // Toma la primera imagen
+           const primeraImagen = imagenes[0];
+
             const itemDiv = $('<div class="item"></div>');
-            const imgContainer = $('<div class="image-container"></div>');
+            const imgContainer = $('<div class="image-container"></div>').attr('data-nota-id', nota.id);
             const imgElement = $('<img>').attr({
-                'src': rutaBase + imagen.archivo,
+                'src': rutaBase + primeraImagen.archivo,
                 'alt': nota.nombre || 'Imagen del carrusel'
-            });
+            }).css('cursor', 'pointer');
 
             const titleOverlay = $('<div class="title-overlay"></div>');
             const titleElement = $('<h3></h3>').text(nota.nombre || '');
 
-            // Información completa de la nota
-            titleElement.attr('data-nota-id', nota.id)
-                      .addClass('nota-title-clickable')
-                      .css('cursor', 'pointer');
-
             titleOverlay.append(titleElement);
             imgContainer.append(imgElement, titleOverlay);
-            // itemDiv.append(imgElement);
             itemDiv.append(imgContainer); 
             carrusel.append(itemDiv);
-        });
+        }
     });
 
     // Si no hay imágenes, mostrar una por defecto
@@ -69,15 +71,15 @@ function mostrarCarrusel(notas,contenedor,urlFiles) {
     // Inicializar el carrusel
     inicializarCarrusel(contenedor);
 
-    // Manejador de eventos para los títulos
-    $('.nota-title-clickable').on('click', function() {
-        const notaId = $(this).data('nota-id');
+    $('.image-container, .image-container img').on('click', function() {
+        const notaId = $(this).closest('.image-container').data('nota-id');
         const notaSeleccionada = notas.find(nota => nota.id == notaId);
         
         if(notaSeleccionada) {
             mostrarDetalleNota(notaSeleccionada, urlFiles);
         }
     });
+    
 }
 
 function mostrarDetalleNota(nota, urlFiles) {
@@ -85,15 +87,39 @@ function mostrarDetalleNota(nota, urlFiles) {
 
     const baseUrl = (urlFiles || '').endsWith('/') ? urlFiles : urlFiles ? urlFiles + '/' : '';
 
-    let imagenSrc = '';
-    if (nota.items && nota.items.length > 0 && nota.items[0].archivo) {
-        imagenSrc = baseUrl + nota.items[0].archivo;
+    // let imagenSrc = '';
+    // if (nota.items && nota.items.length > 0 && nota.items[0].archivo) {
+    //     imagenSrc = baseUrl + nota.items[0].archivo;
+    // }
+    
+    // const detalleHTML = `
+    //     <div class="nota-detalle">
+    //         ${imagenSrc ? `<img src="${imagenSrc}" alt="${nota.nombre || 'Imagen de nota'}" class="nota-imagen">` : ''}
+    //         <h2>${nota.nombre || 'Sin título'}</h2>
+    //         <div class="nota-descripcion">
+    //             ${nota.descripcion || 'No hay descripción disponible.'}
+    //         </div>
+    //     </div>
+    // `;
+
+    // Crear HTML para todas las imágenes en fila
+    let imagenesHTML = '';
+    if (nota.items && nota.items.length > 0) {
+        imagenesHTML = `
+            <div class="galeria-horizontal">
+                ${nota.items.map(item => `
+                    <div class="imagen-horizontal-container">
+                        <img src="${baseUrl}${item.archivo}" alt="${nota.nombre || 'Imagen de nota'}" class="imagen-horizontal">
+                    </div>
+                `).join('')}
+            </div>
+        `;
     }
     
     const detalleHTML = `
         <div class="nota-detalle">
-            ${imagenSrc ? `<img src="${imagenSrc}" alt="${nota.nombre || 'Imagen de nota'}" class="nota-imagen">` : ''}
             <h2>${nota.nombre || 'Sin título'}</h2>
+            ${imagenesHTML}
             <div class="nota-descripcion">
                 ${nota.descripcion || 'No hay descripción disponible.'}
             </div>
