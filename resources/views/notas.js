@@ -3,7 +3,7 @@
  * @param {Array} settings - Configuración para las notas
  */
 export function muestra(settings) {
-    
+
     $.ajax({
         url: settings.url_apiNotas,
         method: "GET",
@@ -49,7 +49,7 @@ function muestraNotas(data, settings) {
     // Se crea el contenedor para las tarjetas de notas
     const $cardsContainer = $item.find(".modulo-secciones");
 
-console.log(settings)
+    // console.log(settings)
 
     // Se crean las tarjetas para cada nota activa
     NotasActivas.forEach(nota => {
@@ -73,10 +73,15 @@ console.log(settings)
                 <div class="card-body">
                     <h6 class="card-title">${nota.nombre}</h6>
                     <p class="card-text">${descripcionTruncada}</p>
-                    <a href="" class="btn btn-primary" onClick="show(${JSON.stringify(settings)}, ${nota.id})">Ver nota</a>
-                </div>
-            </div>
-        `);
+
+                    </div>
+                    </div>
+                    `);
+                    // <a href="" class="btn btn-primary" onClick="show('${JSON.stringify(settings)}', ${nota.id})">Ver nota</a>
+        $item.on("click", function (e) {
+            e.preventDefault(); // Prevenir el comportamiento por defecto del enlace
+            show(settings, nota.id);
+        });
 
         // Se reemplaza la imagen de la tarjeta con la imagen de la nota
         $item.find('.card-img-top').replaceWith(imgElement);
@@ -92,15 +97,12 @@ console.log(settings)
  * @param {string} idNota - ID de la nota a mostrar.
  */
 export function show(settings, idNota) {
-    event.preventDefault();
-    console.log(settings, idNota);
-    settings = JSON.parse(settings);
     $.ajax({
         url: `${settings.url_apiNota}/${idNota}`,
         method: 'GET',
         dataType: 'json',
         success: function (notaJson) {
-            notaJson = JSON.parse(notaJson); // Asegurarse de que notaJson sea un objeto
+            // notaJson = JSON.parse(notaJson); 
             const mainContainer = $('#main_container');
 
             const baseUrl = (settings.url_filesNotas || '').endsWith('/') ? settings.url_filesNotas : settings.url_filesNotas ? settings.url_filesNotas + '/' : '';

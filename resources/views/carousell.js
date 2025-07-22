@@ -3,6 +3,7 @@
  * @param {string} urlApi 
  * @param {string} contenedor
  */
+import { show } from './notas.js';
 export function crear(settings) {
     // Configuración para obtener datos de la API
     const settingsAjax = {
@@ -14,7 +15,7 @@ export function crear(settings) {
 
     // Realizar la petición AJAX
     $.ajax(settingsAjax).done(function (data) {
-        mostrarCarrusel(data,settings.container,settings.url_files);
+        mostrarCarrusel(data, settings.container, settings.url_filesNotas, settings);
     }).fail(function (jqXHR, textStatus, errorThrown) {
         console.error("Error al cargar las imágenes:", textStatus, errorThrown);
         // Mostrar imagen por defecto si hay error
@@ -26,12 +27,12 @@ export function crear(settings) {
 }
 
 // Función para mostrar el carrusel con los datos de la API
-function mostrarCarrusel(notas,contenedor,urlFiles) {
+function mostrarCarrusel(notas, contenedor, urlFiles, settings) {
     const carrusel = $(`#${contenedor}`);
     carrusel.empty(); // Limpiar contenido previo
 
     const notasActivas = notas.filter(nota => nota.activo == 1);
-    
+
     const notasOrdenadas = notasActivas.sort((a, b) => {
         return new Date(b.created_at) - new Date(a.created_at);
     });
@@ -44,7 +45,7 @@ function mostrarCarrusel(notas,contenedor,urlFiles) {
 
         if (imagenes.length > 0) {
             // Toma la primera imagen
-           const primeraImagen = imagenes[0];
+            const primeraImagen = imagenes[0];
 
             const itemDiv = $('<div class="item"></div>');
             const imgContainer = $('<div class="image-container"></div>').attr('data-nota-id', nota.id);
@@ -58,7 +59,7 @@ function mostrarCarrusel(notas,contenedor,urlFiles) {
 
             titleOverlay.append(titleElement);
             imgContainer.append(imgElement, titleOverlay);
-            itemDiv.append(imgContainer); 
+            itemDiv.append(imgContainer);
             carrusel.append(itemDiv);
         }
     });
@@ -71,48 +72,19 @@ function mostrarCarrusel(notas,contenedor,urlFiles) {
     // Inicializar el carrusel
     inicializarCarrusel(contenedor);
 
-    $('.image-container, .image-container img').on('click', function() {
+    $('.image-container, .image-container img').on('click', function () {
         const notaId = $(this).closest('.image-container').data('nota-id');
         const notaSeleccionada = notas.find(nota => nota.id == notaId);
-        
-        if(notaSeleccionada) {
-            mostrarDetalleNota(notaSeleccionada, urlFiles);
+
+        if (notaSeleccionada) {
+            mostrarDetalleNota(notaSeleccionada, urlFiles, settings);
         }
     });
-    
+
 }
 
-function mostrarDetalleNota(nota, urlFiles) {
-    const mainContainer = $('#main_container');
-
-    const baseUrl = (urlFiles || '').endsWith('/') ? urlFiles : urlFiles ? urlFiles + '/' : '';
-
-    // Crear HTML para todas las imágenes en fila
-    let imagenesHTML = '';
-    if (nota.items && nota.items.length > 0) {
-        imagenesHTML = `
-            <div class="galeria-horizontal">
-                ${nota.items.map(item => `
-                    <div class="imagen-horizontal-container">
-                        <img src="${baseUrl}${item.archivo}" alt="${nota.nombre || 'Imagen de nota'}" class="imagen-horizontal">
-                    </div>
-                `).join('')}
-            </div>
-        `;
-    }
-    
-    const detalleHTML = `
-        <div class="nota-detalle">
-            <h2>${nota.nombre || 'Sin título'}</h2>
-            ${imagenesHTML}
-            <div class="nota-descripcion">
-                ${nota.descripcion || 'No hay descripción disponible.'}
-            </div>
-        </div>
-    `;
-    
-    // Insertar en el contenedor principal
-    mainContainer.html(detalleHTML);
+function mostrarDetalleNota(nota, urlFiles, settings) {
+    show(settings, nota.id);
 }
 
 // Función para inicializar Owl Carousel con animaciones
