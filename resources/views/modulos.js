@@ -27,25 +27,11 @@ export function modulosAside(settings) {
         return;
       }
 
-      const $liInicio = $("<li></li>");
-      const $aInicio = $('<a href="">Inicio</a>');
-      $liInicio.append($aInicio);
-      $menu.append($liInicio);
+            const $liInicio = $('<li></li>');
+            const $aInicio = $('<a href="">Inicio</a>')
+            $liInicio.append($aInicio);
+            $menu.append($liInicio);
 
-      const $liNotas = $("<li></li>");
-      const $aNotas = $('<a href="">Notas</a>');
-      $aNotas.on("click", function (e) {
-        e.preventDefault(); // Prevenir el comportamiento por defecto del enlace
-        // const api = settings.url_base + "api/modulo/" + modulo.id;
-        const api = settings.url_apiNotas;
-        console.log(api);
-        settings.url_api = api;
-        settings.title = "Notas";
-        muestraContenido(settings);
-      });
-
-      $liNotas.append($aNotas);
-      $menu.append($liNotas);
 
       // Crear ítems del menú
       modulosActivos.forEach((modulo) => {
@@ -84,9 +70,9 @@ export function modulosAside(settings) {
           $a.prepend(`<span class="icon ${modulo.icono}"></span> `);
         }
 
-        $li.append($a);
-        $menu.append($li);
-      });
+                $li.append($a);
+                $menu.append($li);
+            });
 
       // Si ningún ítem quedó activo, activar el primero
       if (!moduloActivoEncontrado && modulosActivos.length > 0) {
