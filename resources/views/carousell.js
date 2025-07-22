@@ -135,7 +135,7 @@ function inicializarCarrusel(contenedor) {
             1000: {  // Pantallas mayores a 1000px
                 items: 1,
                 nav: true,
-                dots: false
+                dots: true
             }
         }
     });
