@@ -117,7 +117,7 @@
 		const URL_FILES_AVISOS = URL_BASE + 'storage/avisos/';
 		const URL_FILES_NOTAS = URL_BASE + 'storage/notas/';
 		const URL_FILES_MODULOS = URL_BASE + 'storage/seccionitems/';
-		const URL_FILES_ICONS = URL_BASE + 'storage/icons/';
+		const URL_FILES_ICONOS = URL_BASE + 'storage/iconos/';
 
 
 		import * as modulos from './resources/views/modulos.js';
@@ -137,10 +137,9 @@
 			// Cargar menú de módulos
 			const modulosSettings = {
 				url_base: URL_BASE,
-				url_apiModulos: URL_API_MODULOS,
-				url_filesModulos: URL_FILES_MODULOS,
-				url_apiNotas: URL_API_NOTAS,
-				url_filesNotas: URL_FILES_NOTAS,
+				url_api: URL_API_MODULOS,
+				url_files: URL_FILES_MODULOS,
+				url_files_iconos: URL_FILES_ICONOS,
 				menu_container: 'menu-modulos',
 				main_container: 'main_container',
 				datacontainer: 'data_container',

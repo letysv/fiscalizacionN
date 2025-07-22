@@ -30,21 +30,25 @@ export function modulosAside(settings) {
                 return;
             }
 
+            // const $liInicio = $('<li></li>');
+            // const $aInicio = $('<a href="">Inicio</a>')
             const $liInicio = $('<li></li>');
-            const $aInicio = $('<a href="">Inicio</a>')
+            const $aInicio = $('<a href=""></a>')
+            .append(`<img src="${settings.url_files_iconos}default.png" class="menu-icon" alt="Inicio">`)
+            .append(' Inicio');  // El espacio antes de "Inicio" es importante para separar el icono del texto
+
             $liInicio.append($aInicio);
             $menu.append($liInicio);
 
-            
+            // const $liNotas = $('<li></li>');
+            // const $aNotas = $('<a href="">Notas</a>')
             const $liNotas = $('<li></li>');
-            const $aNotas = $('<a href="">Notas</a>')
-            $liNotas.append($aNotas);
-            $aNotas.on("click", function (e) {
-                e.preventDefault(); // Prevenir el comportamiento por defecto del enlace
-                notas.muestra(settings);
-            });
-            $menu.append($liNotas);
+            const $aNotas = $('<a href=""></a>')
+            .append(`<img src="${settings.url_files_iconos}default.png" class="menu-icon" alt="Notas">`)
+            .append(' Notas');
 
+            $liNotas.append($aNotas);
+            $menu.append($liNotas);
 
             // Crear ítems del menú
             modulosActivos.forEach((modulo) => {
@@ -79,8 +83,14 @@ export function modulosAside(settings) {
                 }
 
                 // Agregar icono si existe
+                // if (modulo.icon) {
+                //     $a.prepend(`<span class="icon ${modulo.icon}"></span> `);
+                // }
+
                 if (modulo.icon) {
-                    $a.prepend(`<span class="icon ${modulo.icon}"></span> `);
+                    // Asume que modulo.icon contiene el nombre del archivo (ej: "mi-icono.png")
+                    const iconUrl = settings.url_files_iconos + modulo.icon;
+                    $a.prepend(`<img src="${iconUrl}" class="menu-icon" alt="${modulo.nombre}"> `);
                 }
 
                 $li.append($a);
