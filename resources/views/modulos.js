@@ -35,12 +35,13 @@ export function modulosAside(settings) {
             $liInicio.append($aInicio);
             $menu.append($liInicio);
 
+            
             const $liNotas = $('<li></li>');
             const $aNotas = $('<a href="">Notas</a>')
             $liNotas.append($aNotas);
             $aNotas.on("click", function (e) {
                 e.preventDefault(); // Prevenir el comportamiento por defecto del enlace
-                notas.muestraNotas(settings);
+                notas.muestra(settings);
             });
             $menu.append($liNotas);
 
