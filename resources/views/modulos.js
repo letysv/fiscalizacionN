@@ -1,9 +1,11 @@
-
 /**
  * Función que carga los módulos desde la API y los muestra en el menú dinámico.
- * @param {string} urlApi 
+ * @param {string} urlApi
  * @param {string} contenedor
  */
+
+import * as notas from './notas.js';
+
 export function modulosAside(settings) {
     $.ajax({
         url: settings.url_api,
@@ -44,9 +46,13 @@ export function modulosAside(settings) {
             const $aNotas = $('<a href=""></a>')
             .append(`<img src="${settings.url_files_iconos}default.png" class="menu-icon" alt="Notas">`)
             .append(' Notas');
-
             $liNotas.append($aNotas);
+            $aNotas.on("click", function (e) {
+                e.preventDefault(); // Prevenir el comportamiento por defecto del enlace
+                notas.muestra(settings);
+            });
             $menu.append($liNotas);
+
 
             // Crear ítems del menú
             modulosActivos.forEach(modulo => {
@@ -60,7 +66,6 @@ export function modulosAside(settings) {
                 $a.on('click', function (e) {
                     e.preventDefault(); // Prevenir el comportamiento por defecto del enlace
                     const api = settings.url_base + 'api/modulo/' + modulo.id;
-                    // console.log('Hiciste clic en ', modulo.nombre, modulo.link, 'api:', api);
                     settings.url_api = api;
                     settings.title = modulo.nombre;
                     muestraContenido(settings);
@@ -108,24 +113,24 @@ export function modulosAside(settings) {
 }
 
 function muestraContenido(settings) {
-    const $mainContainer = $('#' + settings.main_container);
+    const $mainContainer = $("#" + settings.main_container);
     if (settings.title) {
-        $mainContainer.find('header.major h2').text(settings.title);
+        $mainContainer.find("header.major h2").text(settings.title);
     }
 
     $.ajax({
         url: settings.url_api,
-        method: 'GET',
-        dataType: 'json',
+        method: "GET",
+        dataType: "json",
         success: function (data) {
             // Procesar y mostrar los datos en el contenedor correspondiente
-            const $container = $('#' + settings.main_container);
+            const $container = $("#" + settings.main_container);
             $container.empty();
             if (settings.title) {
-                    $container.find('header.major h2').text(settings.title);
+                $container.find("header.major h2").text(settings.title);
             }
             if (data && data.length > 0) {
-                data.forEach(item => {
+                data.forEach((item) => {
                     // Crear contenedor principal del módulo
                     const $item = $(`
                                         <header class="major">
@@ -134,11 +139,11 @@ function muestraContenido(settings) {
                                         </header>
                                     `);
 
-                    const $seccionesContainer = $item.find('.modulo-secciones');
+                    const $seccionesContainer = $item.find(".modulo-secciones");
 
                     // Procesar las secciones del módulo
                     if (item.modulos_seccion && item.modulos_seccion.length > 0) {
-                        item.modulos_seccion.forEach(seccion => {
+                        item.modulos_seccion.forEach((seccion) => {
                             const $seccion = $(`
                                                 <div class="seccion-item">
                                                     <h4 class="seccion-nombre">${seccion.nombre}</h4>
@@ -146,14 +151,14 @@ function muestraContenido(settings) {
                                                 </div>
                                             `);
 
-                            const $itemsContainer = $seccion.find('.items-container');
+                            const $itemsContainer = $seccion.find(".items-container");
 
                             // Procesar los items de la sección
                             if (seccion.items_seccion && seccion.items_seccion.length > 0) {
-                                seccion.items_seccion.forEach(itemSeccion => {
+                                seccion.items_seccion.forEach((itemSeccion) => {
                                     const $itemSeccion = $(`
                                                         <div class="item-seccion">
-                                                            <a href="${settings.url_files}${itemSeccion.archivo}" target="_blank" class="item-archivo">
+                                                            <a href="${settings.url_filesModulos}${itemSeccion.archivo}" target="_blank" class="item-archivo">
                                                                 ${itemSeccion.nombre}
                                                             </a>
                                                         </div>
@@ -161,25 +166,29 @@ function muestraContenido(settings) {
                                     $itemsContainer.append($itemSeccion);
                                 });
                             } else {
-                                $itemsContainer.html('<p class="text-muted">No hay items en esta sección</p>');
+                                $itemsContainer.html(
+                                    '<p class="text-muted">No hay items en esta sección</p>'
+                                );
                             }
 
                             $seccionesContainer.append($seccion);
                         });
                     } else {
-                        $seccionesContainer.html('<p class="text-muted">No hay secciones disponibles</p>');
+                        $seccionesContainer.html(
+                            '<p class="text-muted">No hay secciones disponibles</p>'
+                        );
                     }
 
                     $container.append($item);
                 });
             } else {
-                $container.html('<p>No hay datos disponibles</p>');
+                $container.html("<p>No hay datos disponibles</p>");
             }
         },
         error: function (error) {
-            console.error('Error al cargar contenido:', error);
-            const $container = $('#' + settings.datacontainer);
+            console.error("Error al cargar contenido:", error);
+            const $container = $("#" + settings.datacontainer);
             $container.html('<p class="text-danger">Error al cargar contenido</p>');
-        }
+        },
     });
 }

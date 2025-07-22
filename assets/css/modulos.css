@@ -1,52 +1,52 @@
 /* Estilos para el menú dinámico */
 #dynamic-menu {
-    list-style: none;
-    padding-left: 0;
+  list-style: none;
+  padding-left: 0;
 }
 
 #dynamic-menu li {
-    margin-bottom: 1em;
+  margin-bottom: 1em;
 }
 
 #dynamic-menu a {
-    display: flex;
-    align-items: center;
-    color: #fff;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    padding: 0.5em;
-    border-radius: 4px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 0.5em;
+  border-radius: 4px;
 }
 
 #dynamic-menu a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 #dynamic-menu a.active {
-    background-color: rgba(76, 175, 80, 0.3);
-    font-weight: bold;
+  background-color: rgba(76, 175, 80, 0.3);
+  font-weight: bold;
 }
 
 #dynamic-menu .icon {
-    margin-right: 0.8em;
-    width: 1.2em;
-    text-align: center;
+  margin-right: 0.8em;
+  width: 1.2em;
+  text-align: center;
 }
 
 /* Mensajes de estado */
 .text-muted {
-    color: #6c757d !important;
-    font-style: italic;
+  color: #6c757d !important;
+  font-style: italic;
 }
 
 .text-danger {
-    color: #dc3545 !important;
+  color: #dc3545 !important;
 }
 
-.seccion-nombre{
-    font-size:1em;
-    margin-top: .7em;
-    margin-bottom: -.2em;
+.seccion-nombre {
+  font-size: 1em;
+  margin-top: 0.7em;
+  margin-bottom: -0.2em;
 }
 
 .item-seccion{
