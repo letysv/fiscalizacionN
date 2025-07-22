@@ -7,7 +7,6 @@
 import * as notas from './notas.js';
 
 export function modulosAside(settings) {
-    console.log(settings)
     $.ajax({
         url: settings.url_api,
         method: 'GET',
@@ -67,7 +66,6 @@ export function modulosAside(settings) {
                 $a.on('click', function (e) {
                     e.preventDefault(); // Prevenir el comportamiento por defecto del enlace
                     const api = settings.url_base + 'api/modulo/' + modulo.id;
-                    // console.log('Hiciste clic en ', modulo.nombre, modulo.link, 'api:', api);
                     settings.url_api = api;
                     settings.title = modulo.nombre;
                     muestraContenido(settings);

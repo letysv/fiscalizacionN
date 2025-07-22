@@ -87,21 +87,6 @@ function mostrarDetalleNota(nota, urlFiles) {
 
     const baseUrl = (urlFiles || '').endsWith('/') ? urlFiles : urlFiles ? urlFiles + '/' : '';
 
-    // let imagenSrc = '';
-    // if (nota.items && nota.items.length > 0 && nota.items[0].archivo) {
-    //     imagenSrc = baseUrl + nota.items[0].archivo;
-    // }
-    
-    // const detalleHTML = `
-    //     <div class="nota-detalle">
-    //         ${imagenSrc ? `<img src="${imagenSrc}" alt="${nota.nombre || 'Imagen de nota'}" class="nota-imagen">` : ''}
-    //         <h2>${nota.nombre || 'Sin título'}</h2>
-    //         <div class="nota-descripcion">
-    //             ${nota.descripcion || 'No hay descripción disponible.'}
-    //         </div>
-    //     </div>
-    // `;
-
     // Crear HTML para todas las imágenes en fila
     let imagenesHTML = '';
     if (nota.items && nota.items.length > 0) {

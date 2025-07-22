@@ -3,12 +3,13 @@
  * @param {Array} settings - Configuración para las notas
  */
 export function muestra(settings) {
+    
     $.ajax({
         url: settings.url_apiNotas,
         method: "GET",
         dataType: "json",
         success: function (data) {
-            muestraNotas(data, settings.main_container, settings.url_filesNotas);
+            muestraNotas(data, settings);
         }
     })
 }
@@ -19,9 +20,9 @@ export function muestra(settings) {
  * @param {string} contenedor - ID del contenedor donde se mostrarán las notas
  * @param {string} rutaBase - Ruta base para las imágenes de las notas
 */
-function muestraNotas(data, contenedor, rutaBase) {
+function muestraNotas(data, settings) {
     const NotasActivas = data.filter((nota) => nota.activo);
-    const $mainContainer = $("#" + contenedor);
+    const $mainContainer = $("#" + settings.main_container);
     $mainContainer.html("");
 
     // Actualizar el título si se proporciona
@@ -48,6 +49,8 @@ function muestraNotas(data, contenedor, rutaBase) {
     // Se crea el contenedor para las tarjetas de notas
     const $cardsContainer = $item.find(".modulo-secciones");
 
+console.log(settings)
+
     // Se crean las tarjetas para cada nota activa
     NotasActivas.forEach(nota => {
         // Se trunca la descripción si es muy larga
@@ -59,22 +62,20 @@ function muestraNotas(data, contenedor, rutaBase) {
 
         // Se establecen valores para la imagen
         const imgElement = $('<img class="mt-2">').attr({
-            'src': rutaBase + imagenes[0].archivo,
+            'src': settings.url_filesNotas + imagenes[0].archivo,
             'alt': nota.nombre || 'Imagen de la nota'
         });
 
         // Se crea el elemento de la tarjeta
         const $item = $(`
             <div class="card" style="width: 18rem; margin-right: 10px; margin-bottom: 10px;">
-            
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h6 class="card-title">${nota.nombre}</h6>
-                <p class="card-text">${descripcionTruncada}</p>
-                <a href="#" class="btn btn-primary">Ver nota</a>
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h6 class="card-title">${nota.nombre}</h6>
+                    <p class="card-text">${descripcionTruncada}</p>
+                    <a href="" class="btn btn-primary" onClick="show(${JSON.stringify(settings)}, ${nota.id})">Ver nota</a>
+                </div>
             </div>
-            </div>
-
         `);
 
         // Se reemplaza la imagen de la tarjeta con la imagen de la nota
@@ -85,3 +86,53 @@ function muestraNotas(data, contenedor, rutaBase) {
     });
 }
 
+/** 
+ * Muestra los detalles de una nota específica.
+ * @param {Array} settings - URL de la API para obtener los detalles de la nota.
+ * @param {string} idNota - ID de la nota a mostrar.
+ */
+export function show(settings, idNota) {
+    event.preventDefault();
+    console.log(settings, idNota);
+    settings = JSON.parse(settings);
+    $.ajax({
+        url: `${settings.url_apiNota}/${idNota}`,
+        method: 'GET',
+        dataType: 'json',
+        success: function (notaJson) {
+            notaJson = JSON.parse(notaJson); // Asegurarse de que notaJson sea un objeto
+            const mainContainer = $('#main_container');
+
+            const baseUrl = (settings.url_filesNotas || '').endsWith('/') ? settings.url_filesNotas : settings.url_filesNotas ? settings.url_filesNotas + '/' : '';
+
+
+            // Crear HTML para todas las imágenes en fila
+            let imagenesHTML = '';
+            if (notaJson.items && notaJson.items.length > 0) {
+                imagenesHTML = `
+                    <div class="galeria-horizontal">
+                        ${notaJson.items.map(item => `
+                            <div class="imagen-horizontal-container">
+                                <img src="${baseUrl}${item.archivo}" alt="${notaJson.nombre || 'Imagen de nota'}" class="imagen-horizontal">
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            const detalleHTML = `
+                <div class="nota-detalle">
+                    <h2>${notaJson.nombre || 'Sin título'}</h2>
+                    ${imagenesHTML}
+                    <div class="nota-descripcion">
+                        ${notaJson.descripcion || 'No hay descripción disponible.'}
+                    </div>
+                </div>
+            `;
+
+            // Insertar en el contenedor principal
+            mainContainer.html(detalleHTML);
+        }
+    });
+
+}
