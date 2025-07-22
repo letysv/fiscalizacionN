@@ -7,12 +7,13 @@
 import * as notas from './notas.js';
 
 export function modulosAside(settings) {
+    console.log(settings)
     $.ajax({
-        url: settings.url_apiModulos,
-        method: "GET",
-        dataType: "json",
+        url: settings.url_api,
+        method: 'GET',
+        dataType: 'json',
         success: function (data) {
-            const $menu = $("#" + settings.menu_container);
+            const $menu = $('#' + settings.menu_container);
             $menu.empty();
 
             // Obtener la ruta/hash actual
@@ -21,7 +22,7 @@ export function modulosAside(settings) {
 
             // Filtrar y ordenar módulos activos
             const modulosActivos = data
-                .filter((modulo) => modulo.activo)
+                .filter(modulo => modulo.activo)
                 .sort((a, b) => a.orden - b.orden);
 
             // Si no hay módulos activos
@@ -46,24 +47,26 @@ export function modulosAside(settings) {
             const $aNotas = $('<a href=""></a>')
             .append(`<img src="${settings.url_files_iconos}default.png" class="menu-icon" alt="Notas">`)
             .append(' Notas');
-
             $liNotas.append($aNotas);
+            $aNotas.on("click", function (e) {
+                e.preventDefault(); // Prevenir el comportamiento por defecto del enlace
+                notas.muestra(settings);
+            });
             $menu.append($liNotas);
 
+
             // Crear ítems del menú
-            modulosActivos.forEach((modulo) => {
-                const $li = $("<li></li>");
-                const enlace = modulo.link;
-                const cadenaHref = enlace.includes("http") ? enlace : "#";
-                const $a = $("<a></a>")
-                    .attr("href", cadenaHref)
-                    .attr("target", "_blank")
+            modulosActivos.forEach(modulo => {
+                const $li = $('<li></li>');
+                const $a = $('<a></a>')
+                    .attr('href', modulo.link || '#')
+                    .attr('target', '_blank')
                     .text(modulo.nombre);
 
-                $a.on("click", function (e) {
-                    e.preventDefault(); // Prevenir el comportamiento por defecto del enlace
-                    const api = settings.url_base + "api/modulo/" + modulo.id;
 
+                $a.on('click', function (e) {
+                    e.preventDefault(); // Prevenir el comportamiento por defecto del enlace
+                    const api = settings.url_base + 'api/modulo/' + modulo.id;
                     // console.log('Hiciste clic en ', modulo.nombre, modulo.link, 'api:', api);
                     settings.url_api = api;
                     settings.title = modulo.nombre;
@@ -71,14 +74,11 @@ export function modulosAside(settings) {
                 });
 
                 // Determinar si es el ítem activo
-                const esActivo =
-                    currentPath.includes(modulo.enlace) ||
-                    (modulo.es_inicio &&
-                        !moduloActivoEncontrado &&
-                        currentPath.endsWith("/"));
+                const esActivo = currentPath.includes(modulo.enlace) ||
+                    (modulo.es_inicio && !moduloActivoEncontrado && currentPath.endsWith('/'));
 
                 if (esActivo) {
-                    $a.addClass("active");
+                    $a.addClass('active');
                     moduloActivoEncontrado = true;
                 }
 
@@ -103,16 +103,14 @@ export function modulosAside(settings) {
             }
 
             // Inicializar funcionalidad de scroll del template
-            if (typeof $.fn.scrolly === "function") {
-                $menu.find("a").scrolly();
+            if (typeof $.fn.scrolly === 'function') {
+                $menu.find('a').scrolly();
             }
         },
         error: function (error) {
-            console.error("Error al cargar módulos:", error);
-            $("#dynamic-menu").html(
-                '<li class="text-danger">Error al cargar el menú</li>'
-            );
-        },
+            console.error('Error al cargar módulos:', error);
+            $('#dynamic-menu').html('<li class="text-danger">Error al cargar el menú</li>');
+        }
     });
 }
 
