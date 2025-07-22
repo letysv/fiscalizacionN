@@ -77,13 +77,13 @@ function mostrarCarrusel(notas, contenedor, urlFiles, settings) {
         const notaSeleccionada = notas.find(nota => nota.id == notaId);
 
         if (notaSeleccionada) {
-            mostrarDetalleNota(notaSeleccionada, urlFiles, settings);
+            mostrarDetalleNota(notaSeleccionada,settings);
         }
     });
 
 }
 
-function mostrarDetalleNota(nota, urlFiles, settings) {
+function mostrarDetalleNota(nota,settings) {
     show(settings, nota.id);
 }
 

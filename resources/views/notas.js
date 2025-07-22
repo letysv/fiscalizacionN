@@ -68,7 +68,7 @@ function muestraNotas(data, settings) {
 
         // Se crea el elemento de la tarjeta
         const $item = $(`
-            <div class="card" style="width: 18rem; margin-right: 10px; margin-bottom: 10px;">
+            <div class="card" style="width: 18rem; margin-right: 10px; margin-bottom: 10px; cursor: pointer;">
                 <img src="..." class="card-img-top" alt="...">
                 <div class="card-body">
                     <h6 class="card-title">${nota.nombre}</h6>
