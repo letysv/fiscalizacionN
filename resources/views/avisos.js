@@ -10,7 +10,6 @@ export function muestra(settings) {
         url: settings.url_api,
         method: 'GET',
         success: function (avisos) {
-
             const $mainContainer = $('#' + settings.main_container);
 
             // Actualizar el título si se proporciona
@@ -31,35 +30,33 @@ export function muestra(settings) {
                 return;
             }
 
-            // Crear contenedor de avisos
-            const $avisosContainer = $('<div></div>');
+            let $ul = $('<ul class="feature-icons" style="margin-top: 1em;"></ul>');
 
             // Agregar cada aviso
             avisosActivos.forEach(aviso => {
-                const $avisoItem = $(` 
-									<div class="aviso-item">
-										<p class="aviso-titulo">${aviso.nombre}</p>
-									</div>
-								`);
+                // const $avisoItem = $(`<div class="aviso-item"></div>`);
+                const $avisoItem = $(`<li class="icon solid fa-comment"></li>`);
 
-                $avisosContainer.append($avisoItem);
-
+                // Crear el título del aviso
+                const $avisoTitulo = $(`<p class="aviso-titulo">${aviso.nombre}</p>`);
+                $avisoItem.append($avisoTitulo);
 
                 const items = aviso.items || [];
                 if (items.length > 0) {
+                    // Crear contenedor para los archivos del aviso
                     const $archivosContainer = $('<div class="archivos-container"></div>');
                     items.forEach(item => {
                         const itemFile = `<a href="${settings.url_files}${item.archivo}" target="_blank">${item.descripcion}</a>`;
-
                         $archivosContainer.append(`<div class="archivo-item">${itemFile}</div>`);
 
-                        $avisosContainer.append($archivosContainer);
+                        $avisoItem.append($archivosContainer);
                     })
                 }
-
+                $ul.append($avisoItem);
+                $avisosContent.append($ul);
+                // $avisosContent.append($avisoItem);
             });
-
-            $avisosContent.append($avisosContainer);
+            $mainContainer.append($avisosContent);
         },
         error: function (error) {
             console.error('Error avisos:', error);

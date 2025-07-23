@@ -5,8 +5,9 @@
  */
 
 import * as notas from './notas.js';
+import * as avisos from './avisos.js';
 
-export function modulosAside(settings) {
+export function modulosAside(settings,settingsAvisos) {
     $.ajax({
         url: settings.url_api,
         method: 'GET',
@@ -30,25 +31,26 @@ export function modulosAside(settings) {
                 return;
             }
 
-            // const $liInicio = $('<li></li>');
-            // const $aInicio = $('<a href="">Inicio</a>')
+            // Crear el ítem de inicio
             const $liInicio = $('<li></li>');
             const $aInicio = $('<a href=""></a>')
             .append(`<img src="${settings.url_files_iconos}default.png" class="menu-icon" alt="Inicio">`)
             .append(' Inicio');  // El espacio antes de "Inicio" es importante para separar el icono del texto
-
             $liInicio.append($aInicio);
+            // $aInicio.on("click", function (e) {
+            //     e.preventDefault();
+            //     avisos.muestra(settingsAvisos);
+            // });
             $menu.append($liInicio);
 
-            // const $liNotas = $('<li></li>');
-            // const $aNotas = $('<a href="">Notas</a>')
+            // Crear el ítem de notas
             const $liNotas = $('<li></li>');
-            const $aNotas = $('<a href=""></a>')
+            const $aNotas = $('<a href="#"></a>')
             .append(`<img src="${settings.url_files_iconos}default.png" class="menu-icon" alt="Notas">`)
             .append(' Notas');
             $liNotas.append($aNotas);
             $aNotas.on("click", function (e) {
-                e.preventDefault(); // Prevenir el comportamiento por defecto del enlace
+                e.preventDefault();
                 notas.muestra(settings);
             });
             $menu.append($liNotas);

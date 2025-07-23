@@ -17,8 +17,7 @@ export function muestra(settings) {
 /** 
  * Muestra las notas en el contenedor especificado.
  * @param {Array} data - Array de notas obtenidas de la API.
- * @param {string} contenedor - ID del contenedor donde se mostrarán las notas
- * @param {string} rutaBase - Ruta base para las imágenes de las notas
+ * @param {Array} settings - Configuración para las notas
 */
 function muestraNotas(data, settings) {
     const NotasActivas = data.filter((nota) => nota.activo);
@@ -48,8 +47,6 @@ function muestraNotas(data, settings) {
 
     // Se crea el contenedor para las tarjetas de notas
     const $cardsContainer = $item.find(".modulo-secciones");
-
-    // console.log(settings)
 
     // Se crean las tarjetas para cada nota activa
     NotasActivas.forEach(nota => {
