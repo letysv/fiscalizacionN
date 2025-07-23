@@ -100,7 +100,7 @@ export function show(settings, idNota) {
         dataType: 'json',
         success: function (notaJson) {
             // notaJson = JSON.parse(notaJson); 
-            const mainContainer = $('#main_container');
+            const mainContainer = $('#' + settings.main_container);
 
             const baseUrl = (settings.url_filesNotas || '').endsWith('/') ? settings.url_filesNotas : settings.url_filesNotas ? settings.url_filesNotas + '/' : '';
 

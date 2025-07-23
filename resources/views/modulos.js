@@ -5,7 +5,7 @@
  */
 
 import * as notas from './notas.js';
-import * as avisos from './avisos.js';
+// import * as avisos from './avisos.js';
 
 export function modulosAside(settings,settingsAvisos) {
     $.ajax({
